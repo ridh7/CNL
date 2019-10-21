@@ -1,14 +1,15 @@
-#step 1----yum install dhcp
+#step 1-----
 
+yum install dhcp
 
 #step 2-----
 
 copy this into /etc/dhcp/dhcpd.conf file
 
 subnet 192.168.6.0 netmask 255.255.255.0 
-{  range 192.168.6.2 192.168.6.11;
-  option domain-name-servers ns1.internal.example.org;
-  option domain-name "internal.example.org";
+{ 
+  range 192.168.6.2 192.168.6.11;
+  interface <interface name checked from ifconfig>;
   option routers 192.168.6.254;
   option broadcast-address 192.168.6.255;
   default-lease-time 600;
@@ -24,10 +25,48 @@ systemctl start dhcpd.service
 
 systemctl enable dhcpd.service
 
-#step 5------
+#step 5-----
 
-chkconfig dhcpd on
+systemctl status dhcpd.service
 
-#step 6---
+#step 6-----
 
-service dhcpd restart
+systemctl stop dhcpd.service
+
+
+NOTE: For Ubuntu:-
+
+#step 1-----
+
+sudo apt-get install dhcpd
+
+#step 2-----
+
+copy this into /etc/dhcp/dhcpd.conf file
+
+subnet 192.168.6.0 netmask 255.255.255.0 
+{ 
+  range 192.168.6.2 192.168.6.11;
+  interface <interface name checked from ifconfig>;
+  option routers 192.168.6.254;
+  option broadcast-address 192.168.6.255;
+  default-lease-time 600;
+  max-lease-time 7200;
+}
+
+
+#step 3-----
+
+systemctl start isc-dhcp-server.service
+
+#step 4-----
+
+systemctl enable isc-dhcp-server.service
+
+#step 5-----
+
+systemctl status isc-dhcp-server.service
+
+#step 6-----
+
+systemctl stop isc-dhcp-server.service
