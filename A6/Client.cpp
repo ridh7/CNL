@@ -33,7 +33,8 @@ int main(int argc, char const *argv[])
 
 	server.sin_family = AF_INET;
 	server.sin_port   = htons(8004);
-	server.sin_addr.s_addr = inet_addr("10.10.15.111");
+	server.sin_addr.s_addr = INADDR_ANY;
+	//server.sin_addr.s_addr = inet_addr("10.10.15.111"); this is for multiple machines
 	//cout<<ntohl(server.sin_addr.s_addr);
 
 	connect(sock,(struct sockaddr *)&server,sizeof(server));
